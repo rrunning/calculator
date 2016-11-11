@@ -1,11 +1,29 @@
 body {
 	background-color: #2F4F4F;
 	color: white;
+	font-size: 18px
 }
 button {
 	text-align: center;	
+	width: 55px;
+	height: 55px;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 5px 5px 5px 5px;
 }
 #display-field {
-	height: 25px;
+	height: 45px;
 	width: 350px;
+	font-size: 22px;
+}
+#number-buttons {
+	width: 50%;
+}
+#symbol-buttons {
+	
+}
+#clr-button {
+	width: 50%;
+	float: right;
 }
