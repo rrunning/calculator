@@ -4,12 +4,17 @@ $(document).ready (function() {
 	$('.characters').on('click', insert);
 
 // have the field to all the math for the characters entered into the field
-	$('.equals').on('click', console.log($('#display-field').val()));
+	$('.equals').on('click', math);
 
 	function insert() {
 			var input = $('#display-field'); 
 			input.html(input.html() + $(this).html())
 	}
 
+	function math() {
+		// console.log(eval($('#display-field').html()));
+		var result = eval($('#display-field').html());
+		$('#display-field').html(result);
+	}
 });
 
