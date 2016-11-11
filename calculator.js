@@ -6,6 +6,9 @@ $(document).ready (function() {
 // have the field to all the math for the characters entered into the field
 	$('.equals').on('click', math);
 
+// clear button removes everything from the display
+	$('#clear').on('click', clearField);	
+
 	function insert() {
 			var input = $('#display-field'); 
 			input.html(input.html() + $(this).html())
@@ -15,6 +18,10 @@ $(document).ready (function() {
 		// console.log(eval($('#display-field').html()));
 		var result = eval($('#display-field').html());
 		$('#display-field').html(result);
+	}
+
+	function clearField() {
+		$('#display-field').html('');
 	}
 });
 
