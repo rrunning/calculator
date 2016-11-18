@@ -7,7 +7,10 @@ $(document).ready (function() {
 	$('.equals').on('click', math);
 
 // clear button removes everything from the display
-	$('#clear').on('click', clearField);	
+	$('#clear').on('click', clearField);
+
+// +/- button changes the display field sign
+	$('#positive-negative').on('click', signToggle);
 
 	function insert() {
 			var input = $('#display-field');
@@ -43,6 +46,13 @@ $(document).ready (function() {
 	// 	var lastCharacter = displayString.charAt(displayString.length - 1);
 	// 	console.log(lastCharacter);
 	// }
+
+	// use the +/- buton to change the number from + to - and vice versa
+	function signToggle() {
+		var number = $('#display-field');
+		number.html('-(' + number.html() + ')');
+	}
+
 });
 var recentEntries = []
 
@@ -65,3 +75,4 @@ function allowOperator(peanut) {
 		operatorAllowed = true;
 	}
 }
+
