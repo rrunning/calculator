@@ -24,25 +24,35 @@ $(document).ready (function() {
 
 	function math() {
 		// console.log(eval($('#display-field').html()));
+		// recentEntries.push($('#display-field').html());
+		// lastFiveEntries();
+		addToHistory();
 		var result = eval($('#display-field').html());
 		$('#display-field').html(result);
 	}
 
 	function clearField() {
-		recentEntries.push($('#display-field').html());
-		lastFiveEntries();
+		// recentEntries.push($('#display-field').html());
+		// lastFiveEntries();
+		addToHistory();
 		$('#display-field').html('');
 		console.log(recentEntries);
 	}
-	function addOperator() {
-		var displayString = $('#display-field').html();
-		var lastCharacter = displayString.charAt(displayString.length - 1);
-		console.log(lastCharacter);
-	}
+	// function addOperator() {
+	// 	var displayString = $('#display-field').html();
+	// 	var lastCharacter = displayString.charAt(displayString.length - 1);
+	// 	console.log(lastCharacter);
+	// }
 });
 var recentEntries = []
+
 function lastFiveEntries() {
 	$('ul').append($('<li>').text(recentEntries[recentEntries.length - 1]));
+}
+
+function addToHistory () {
+	recentEntries.push($('#display-field').html());
+	lastFiveEntries();
 }
 
 // Do not allow any operators to be placed side by side.
