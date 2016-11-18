@@ -1,16 +1,17 @@
 body {
-	background-color: #2F4F4F;
+	background-color: #000;
 	color: white;
 	font-size: 18px
 }
 button {
 	text-align: center;	
 	width: 55px;
-	height: 55px;
+	height: 45px;
 	border-radius: 5px;
 	font-size: 18px;
 	font-weight: bold;
-	margin: 5px 5px 5px 5px;
+	margin: 2px 0 2px 0;
+	border:none;
 }
 ul {
 	padding-left: 0;
@@ -18,23 +19,37 @@ ul {
 li {
 	list-style: none;
 }
+#zero {
+	width: 115px;
+}
 #recent-entries {
 	height: 45px;
 	width: 350px;
 	font-size: 20px;
+	color: #fff;
 }
 #display-field {
 	height: 45px;
 	width: 350px;
 	font-size: 22px;
+	color: #fff
+}
+#big-div {
+	display: inline-block;
 }
 #number-buttons {
-	width: 50%;
+	width: 175px;
 }
 #symbol-buttons {
-	
+	width: 60px;
+	display: inline-block;
 }
 #clr-button {
-	width: 50%;
-	float: right;
+	float: left;
+}
+.operator {
+	background-color: #cc9900
+}
+button.equals {
+	background-color: #009933;
 }
