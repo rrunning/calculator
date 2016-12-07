@@ -16,9 +16,6 @@ $(document).ready (function() {
 
 	function insert() {
 		var el = $(this);
-		// if (operatorAllowed === false && negAllowed === true && el.hasClass('minus')) {
-		// 	input.html(input.html() + $(this).html());
-		// 	// return;
 		if (operatorAllowed === false && el.hasClass('operator')) {
 			input.html(input.html().substring(0, input.html().length - 1));
 			// input.html(input.html() + $(this).html());
@@ -42,8 +39,12 @@ $(document).ready (function() {
 	}
 
 	function math() {
-		var result = eval($('#display-field').html());
+		var string = fixString();
+		var result = eval(string);
 		$('#display-field').html(result);
+		operatorAllowed = true;
+		decAllowed = true;
+		negAllowed = true;
 		// console.log(eval($('#display-field').html()));
 		// recentEntries.push($('#display-field').html());
 		// recentHistory();
@@ -58,6 +59,7 @@ $(document).ready (function() {
 		// addToHistory();
 		// console.log(recentEntries);
 	}
+
 	// function addOperator() {
 	// 	var displayString = $('#display-field').html();
 	// 	var lastCharacter = displayString.charAt(displayString.length - 1);
@@ -133,6 +135,17 @@ $(document).ready (function() {
 
 	function errorMsg() {
 		alert("Invalid sequence!");
+	}
+
+	function fixString() {
+		var displayString = input.html();
+		var lastCharacter = displayString.charAt(displayString.length - 1);
+		// console.log(lastCharacter);
+		if (lastCharacter === '+' || lastCharacter === '-' || lastCharacter === '/' || lastCharacter === '*') {
+			// input.html(input.html().substring(0, input.html().length - 1));
+			displayString = displayString.substring(0, displayString.length - 1);
+		}
+		return displayString;
 	}
 
 });
