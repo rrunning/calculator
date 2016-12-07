@@ -1,5 +1,5 @@
 body {
-	background-color: #000;
+	background-color: #444;
 	color: white;
 	font-size: 18px
 }
@@ -19,10 +19,15 @@ ul {
 li {
 	list-style: none;
 }
+#past-math {
+	width: 235px;
+	height: 45px;
+	background-color: #fff;
+}
 #zero {
 	width: 115px;
 }
-#recent-entries {
+#history {
 	height: 45px;
 	width: 350px;
 	font-size: 20px;
@@ -33,6 +38,7 @@ li {
 	width: 350px;
 	font-size: 22px;
 	color: #fff
+	margin-top: 25px;
 }
 #big-div {
 	display: inline-block;
