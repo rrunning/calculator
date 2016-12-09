@@ -3,7 +3,9 @@
 $(document).ready (function() {
 	var input = $('#display-field');
 
-	$('.characters').on('click', insert);
+	$('.characters').on('click', function() {
+		insert($(this).html())
+	});
 
 // have the field to all the math for the characters entered into the field
 	$('.equals').on('click', math);
@@ -12,27 +14,47 @@ $(document).ready (function() {
 	$('#clear').on('click', clearField);
 
 // +/- button changes the display field sign
-	$('#positive-negative').on('click', signToggle);
+	// $('#positive-negative').on('click', signToggle);
 
-	function insert() {
-		var el = $(this);
-		if (operatorAllowed === false && el.hasClass('operator')) {
+	$(window).on('keyup', function(event) {
+		var keyString = peanut(event);
+		if (keyString === undefined){
+			return;
+		} else {
+			insert(keyString);
+		}
+
+		console.log('event', event);
+	});
+
+	var operatorArr = ['+', '-', '+', '/'];
+
+	function findCharacter() {
+		var currentCharacter = $(this).html(); 
+		console.log(currentCharacter)
+		return $(this).html();
+	}
+
+	function insert(character) {
+		// var el = $(this);
+
+		if (operatorAllowed === false && operatorArr.indexOf(character) > -1) {
 			input.html(input.html().substring(0, input.html().length - 1));
 			// input.html(input.html() + $(this).html());
 			// return;	
 		}
-		if (decAllowed === false && el.hasClass('decimal')) {
+		if (decAllowed === false && character === '.') {
 			errorMsg();
 			return;	
 		} 
-		if (negAllowed === false && el.hasClass('minus')) {
+		if (negAllowed === false && character === '-') {
 			errorMsg();
 			return;	
 		}
-		input.html(input.html() + $(this).html());
-		allowOperator(el);
-		allowDec(el);
-		allowNeg(el);
+		input.html(input.html() + character);
+		allowOperator(character);
+		allowDec(character);
+		allowNeg(character);
 		console.log(operatorAllowed);
 		// console.log(negAllowed);
 		// addOperator();
@@ -41,7 +63,7 @@ $(document).ready (function() {
 	function math() {
 		var string = fixString();
 		var result = eval(string);
-		$('#display-field').html(result);
+		input.html(result);
 		operatorAllowed = true;
 		decAllowed = true;
 		negAllowed = true;
@@ -52,8 +74,10 @@ $(document).ready (function() {
 	}
 
 	function clearField() {
-		$('#display-field').html('');
+		input.html('');
 		decAllowed = true;
+		operatorAllowed = false;
+		negAllowed = true;
 		// recentEntries.push($('#display-field').html());
 		// recentHistory();
 		// addToHistory();
@@ -67,22 +91,22 @@ $(document).ready (function() {
 	// }
 
 	// use the +/- buton to change the number from + to - and vice versa
-	function signToggle() {
-		var number = $('#display-field');
-		var numberString = number.html()
-		var operators = ['+', '-', '/', '*'];
-		for (var i = numberString.length - 1; i > 0; i--) {
-			if (operators.indexOf(numberString[i]) > -1) {
-			// if (numberString[i] === '+' || numberString[i] === '-' || '*' || '/') {
-				numberString.splice(i, 0, '-');
-				// number.html('-(' + numberString[i] + ')');
-				return;
-			} else if (operators.indexOf(numberString[i]) === -1) {
-				number.html('-(' + numberString[i] + ')');
-			}
-		}
+	// function signToggle() {
+	// 	// var number = $('#display-field');
+	// 	var numberString = input.html()
+	// 	var operators = ['+', '-', '/', '*'];
+	// 	for (var i = numberString.length - 1; i > 0; i--) {
+	// 		if (operatorArr.indexOf(numberString[i]) > -1) {
+	// 		// if (numberString[i] === '+' || numberString[i] === '-' || '*' || '/') {
+	// 			numberString.splice(i, 0, '-');
+	// 			// number.html('-(' + numberString[i] + ')');
+	// 			return;
+	// 		} else if (operators.indexOf(numberString[i]) === -1) {
+	// 			number.html('-(' + numberString[i] + ')');
+	// 		}
+	// 	}
 
-	}
+	// }
 
 
 	// var history = [];
@@ -105,8 +129,8 @@ $(document).ready (function() {
 
 	var operatorAllowed = true;
 
-	function allowOperator(peanut) {
-		if(peanut.hasClass('operator')) {
+	function allowOperator(character) {
+		if(operatorArr.indexOf(character) != -1) {
 			operatorAllowed = false;
 		} else {
 			operatorAllowed = true;
@@ -115,18 +139,18 @@ $(document).ready (function() {
 
 	var decAllowed = true;
 
-	function allowDec(key) {
-		if(key.hasClass('decimal')) {
+	function allowDec(character) {
+		if(character === '.') {
 			decAllowed = false;
-		} else if (key.hasClass('operator')){
+		} else if (operatorArr.indexOf(character) != -1) {
 			decAllowed = true;
 		}
 	}
 
 	var negAllowed = true;
 
-	function allowNeg(key) {
-		if(key.hasClass('minus')) {
+	function allowNeg(character) {
+		if(character === '-') {
 			negAllowed = false;
 		} else {
 			negAllowed = true;
@@ -148,6 +172,57 @@ $(document).ready (function() {
 		return displayString;
 	}
 
+	function peanut(event) {
+		var key;
+		switch (event.keyCode) {
+			case 49:
+				key = '1';
+				break;
+			case 50:
+				key = '2';
+				break;
+			case 51:
+				key = '3';
+				break;
+			case 52:
+				key = '4';
+				break;
+			case 53:
+				key = '5';
+				break;
+			case 54:
+				key = '6';
+				break;
+			case 55:
+				key = '7';
+				break;
+			case 56:
+				key = event.shiftKey ? '*' : '8';
+				break;
+			case 57:
+				key = '9';
+				break;
+			case 48:
+				key = '0';
+				break;
+			case 189:
+				key = '-';
+				break;
+			case 187:
+				key = '+';
+				break;
+			case 19:
+				key = '/';
+				break;
+			case 13:
+				return math();
+				break;
+			case 8:
+				return clearField();
+				break;
+		}
+		return key;
+	}
 });
 
 
