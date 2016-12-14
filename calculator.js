@@ -211,7 +211,7 @@ $(document).ready (function() {
 			case 187:
 				key = '+';
 				break;
-			case 19:
+			case 191:
 				key = '/';
 				break;
 			case 13:
