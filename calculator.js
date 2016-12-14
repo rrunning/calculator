@@ -14,7 +14,7 @@ $(document).ready (function() {
 	$('#clear').on('click', clearField);
 
 // +/- button changes the display field sign
-	// $('#positive-negative').on('click', signToggle);
+	$('#positive-negative').on('click', addNegative);
 
 	$(window).on('keyup', function(event) {
 		var keyString = peanut(event);
@@ -27,7 +27,8 @@ $(document).ready (function() {
 		console.log('event', event);
 	});
 
-	var operatorArr = ['+', '-', '+', '/'];
+	var operatorArr = ['+', '-', '*', '/'];
+	var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
 	function findCharacter() {
 		var currentCharacter = $(this).html(); 
@@ -55,7 +56,7 @@ $(document).ready (function() {
 		allowOperator(character);
 		allowDec(character);
 		allowNeg(character);
-		console.log(operatorAllowed);
+		// console.log(operatorAllowed);
 		// console.log(negAllowed);
 		// addOperator();
 	}
@@ -165,7 +166,7 @@ $(document).ready (function() {
 		var displayString = input.html();
 		var lastCharacter = displayString.charAt(displayString.length - 1);
 		// console.log(lastCharacter);
-		if (lastCharacter === '+' || lastCharacter === '-' || lastCharacter === '/' || lastCharacter === '*') {
+		if (operatorArr.indexOf(lastCharacter) != -1) {
 			// input.html(input.html().substring(0, input.html().length - 1));
 			displayString = displayString.substring(0, displayString.length - 1);
 		}
@@ -222,6 +223,28 @@ $(document).ready (function() {
 				break;
 		}
 		return key;
+	}
+
+	function isOperator(character) {
+		return operatorArr.indexOf(character) > -1;
+	}
+	function isNum(character) {
+		return numArr.indexOf(character) > -1;
+	}
+	// +/- button needs to place a - sign in the correct space. Correct locations are: beginning of string; following operators;
+	// This button should function before or after the number has been entered into the string.
+	function addNegative() {
+		var characterStr = input.html()
+		if (characterStr.length === 0) {
+				input.html(input.html() + '-')
+		} else {
+			for (var i = characterStr.length -1; i >= 0; i--) {
+				if(isOperator(characterStr[i])) {
+					input.html(input.html() + '-');
+					break;
+				} 
+			}
+		} 
 	}
 });
 
