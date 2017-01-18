@@ -14,7 +14,7 @@ $(document).ready (function() {
 	$('#clear').on('click', clearField);
 
 // +/- button changes the display field sign
-	$('#positive-negative').on('click', addNegative);
+	$('#positive-negative').on('click', posneg);
 
 	$(window).on('keyup', function(event) {
 		var keyString = peanut(event);
@@ -30,32 +30,77 @@ $(document).ready (function() {
 	var operatorArr = ['+', '-', '*', '/'];
 	var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
+	function posneg() {
+		// if the string is = 0
+		if( input.length === 0) {
+			// add '-' to the equation
+			input.html(input.html() + '-')
+		}
+		else {
+			// loop through the string from the end to the beginning
+			for (var i = input.length -1; i >= 0; i--) {
+				// check if the character being inserted to the input is an operator
+				if (isOperator(input[i])) {
+					// if true; check to see if the operator is a negative
+					if (input[i] !== '-'){
+						// if the operator is not a negative; add '-'
+						input.html(input.html() + '-')
+					}
+					else {
+						// if the operator is a negative; check the character preceding the negative.
+						if ((numArr.indexOf(i - 1) === -1) && (operatorArr.indexOf(i-1) === -1)) {
+							// If no prev. character, remove '-'
+							input.html('-' + input.html())
+						}
+						else if (operatorArr.indexOf(i - 1 != -1)){
+							input.html(input.html() + '-')
+							// if prev character is not an operator; add '-'
+						}
+						else {
+							// if prev character is an operator; remove '-'
+						}
+					}
+				}
+				else {
+					// if false; check to see if the character is the beginning of a string
+					if (i === 0){
+						// if beginning of the string; add '-'
+						input.html('-' + input.html())
+					}
+					else {
+						// if not the beginning; continue to next character - No action needed?
+					}
+				}
+			}
+		}
+	}
+
+
 	function findCharacter() {
-		var currentCharacter = $(this).html(); 
+		var currentCharacter = $(this).html();
 		console.log(currentCharacter)
 		return $(this).html();
 	}
 
 	function insert(character) {
 		// var el = $(this);
-
 		if (operatorAllowed === false && operatorArr.indexOf(character) > -1) {
 			input.html(input.html().substring(0, input.html().length - 1));
 			// input.html(input.html() + $(this).html());
-			// return;	
+			// return;
 		}
 		if (decAllowed === false && character === '.') {
 			errorMsg();
-			return;	
-		} 
-		if (negAllowed === false && character === '-') {
-			errorMsg();
-			return;	
+			return;
 		}
+		// if (negAllowed === false && character === '-') {
+		// 	errorMsg();
+		// 	return;
+		// }
 		input.html(input.html() + character);
 		allowOperator(character);
 		allowDec(character);
-		allowNeg(character);
+		// allowNeg(character);
 		// console.log(operatorAllowed);
 		// console.log(negAllowed);
 		// addOperator();
@@ -67,7 +112,7 @@ $(document).ready (function() {
 		input.html(result);
 		operatorAllowed = true;
 		decAllowed = true;
-		negAllowed = true;
+		// negAllowed = true;
 		// console.log(eval($('#display-field').html()));
 		// recentEntries.push($('#display-field').html());
 		// recentHistory();
@@ -78,7 +123,7 @@ $(document).ready (function() {
 		input.html('');
 		decAllowed = true;
 		operatorAllowed = false;
-		negAllowed = true;
+		// negAllowed = true;
 		// recentEntries.push($('#display-field').html());
 		// recentHistory();
 		// addToHistory();
@@ -129,7 +174,6 @@ $(document).ready (function() {
 	// Do not allow any operators to be placed side by side.
 
 	var operatorAllowed = true;
-
 	function allowOperator(character) {
 		if(operatorArr.indexOf(character) != -1) {
 			operatorAllowed = false;
@@ -139,22 +183,11 @@ $(document).ready (function() {
 	}
 
 	var decAllowed = true;
-
 	function allowDec(character) {
 		if(character === '.') {
 			decAllowed = false;
 		} else if (operatorArr.indexOf(character) != -1) {
 			decAllowed = true;
-		}
-	}
-
-	var negAllowed = true;
-
-	function allowNeg(character) {
-		if(character === '-') {
-			negAllowed = false;
-		} else {
-			negAllowed = true;
 		}
 	}
 
@@ -242,10 +275,8 @@ $(document).ready (function() {
 				if(isOperator(characterStr[i])) {
 					input.html(input.html() + '-');
 					break;
-				} 
+				}
 			}
-		} 
+		}
 	}
 });
-
-
