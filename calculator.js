@@ -51,7 +51,7 @@ $(document).ready (function() {
 						secondHalf = currScreen.slice(i+1);
 						var secHalf = '-' + secondHalf;
 						currScreen = firstHalf + secHalf;
-						return;
+						break;
 					}
 					else {
 						// if the operator is a negative; check the character preceding the negative.
@@ -60,7 +60,7 @@ $(document).ready (function() {
 							firstHalf = currScreen.slice(0, i);
 							secondHalf = currScreen.slice(i+1);
 							currScreen = firstHalf + secondHalf;
-							return;
+							break;
 						}
 						else {
 							// if prev character is not an operator; add '-'
@@ -68,7 +68,7 @@ $(document).ready (function() {
 							secondHalf = currScreen.slice(i+1);
 							var secHalf = '-' + secondHalf;
 							currScreen = firstHalf + secHalf;
-							return;
+							break;
 						}
 					}
 				}
@@ -83,6 +83,7 @@ $(document).ready (function() {
 					}
 				}
 			}
+			input.html(currScreen);
 		}
 	}
 
