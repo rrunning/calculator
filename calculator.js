@@ -31,33 +31,44 @@ $(document).ready (function() {
 	var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
 	function posneg() {
+		var currScreen = input.html();
 		// if the string is = 0
-		if( input.length === 0) {
+		if( currScreen.length === 0) {
 			// add '-' to the equation
-			input.html(input.html() + '-')
+			input.html('-');
 		}
 		else {
 			// loop through the string from the end to the beginning
-			for (var i = input.length -1; i >= 0; i--) {
+			for (var i = currScreen.length -1; i >= 0; i--) {
+				var firstHalf;
+				var secondHalf;
 				// check if the character being inserted to the input is an operator
-				if (isOperator(input[i])) {
+				if (isOperator(currScreen[i])) {
 					// if true; check to see if the operator is a negative
-					if (input[i] !== '-'){
+					if (currScreen[i] !== '-'){
 						// if the operator is not a negative; add '-'
-						input.html(input.html() + '-')
+						firstHalf = currScreen.slice(0, i+1);
+						secondHalf = currScreen.slice(i+1);
+						var secHalf = '-' + secondHalf;
+						currScreen = firstHalf + secHalf;
+						return;
 					}
 					else {
 						// if the operator is a negative; check the character preceding the negative.
-						if ((numArr.indexOf(i - 1) === -1) && (operatorArr.indexOf(i-1) === -1)) {
-							// If no prev. character, remove '-'
-							input.html('-' + input.html())
-						}
-						else if (operatorArr.indexOf(i - 1 != -1)){
-							input.html(input.html() + '-')
-							// if prev character is not an operator; add '-'
+						if (i === 0 || isOperator(currScreen[i-1])) {
+							// If no prev. character, remove '-' using .slice
+							firstHalf = currScreen.slice(0, i);
+							secondHalf = currScreen.slice(i+1);
+							currScreen = firstHalf + secondHalf;
+							return;
 						}
 						else {
-							// if prev character is an operator; remove '-'
+							// if prev character is not an operator; add '-'
+							firstHalf = currScreen.slice(0, i+1);
+							secondHalf = currScreen.slice(i+1);
+							var secHalf = '-' + secondHalf;
+							currScreen = firstHalf + secHalf;
+							return;
 						}
 					}
 				}
@@ -65,7 +76,7 @@ $(document).ready (function() {
 					// if false; check to see if the character is the beginning of a string
 					if (i === 0){
 						// if beginning of the string; add '-'
-						input.html('-' + input.html())
+						input.html('-' + currScreen)
 					}
 					else {
 						// if not the beginning; continue to next character - No action needed?
