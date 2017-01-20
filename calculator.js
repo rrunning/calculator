@@ -88,6 +88,33 @@ $(document).ready (function() {
 		}
 	}
 
+	function addParenth() {
+		var currScreen = input.html();
+		var splitStart;
+		var splitEnd;
+		for (var i = currScreen.length -1; i >= 0; i--) {
+			if (splitEnd === undefined) {
+				if (isOperator(currScreen[i])) {
+					if (currScreen[i] === '-') {
+						if (currScreen[i-1] === '-') {
+							splitStart = i;
+						}
+						else {
+							splitEnd = null;
+						}
+					}
+					else {
+						splitEnd = null;
+					}
+				}
+				else {
+					// continue loop
+				}
+			}
+		}
+		var finalStr = str.slice(0, splitStart) + '(' + str.slice(splitStart, splitEnd + 1) + ')';
+		return finalStr;
+	}
 
 	function findCharacter() {
 		var currentCharacter = $(this).html();
