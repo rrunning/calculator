@@ -76,7 +76,8 @@ $(document).ready (function() {
 					// if false; check to see if the character is the beginning of a string
 					if (i === 0){
 						// if beginning of the string; add '-'
-						input.html('-' + currScreen)
+						currScreen = '-' + currScreen
+						break;
 					}
 					else {
 						// if not the beginning; continue to next character - No action needed?
