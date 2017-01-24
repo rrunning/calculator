@@ -19,10 +19,17 @@ ul {
 li {
 	list-style: none;
 }
-#past-math {
-	width: 235px;
-	height: 45px;
-	background-color: #fff;
+#one-div-to-rule-them-all {
+
+}
+#container {
+		text-align: center;
+		margin: 45px auto;
+		border: 4px solid white;
+		border-radius: 15px;
+		width: 300px;
+		padding-bottom: 25px;
+
 }
 #zero {
 	width: 115px;
@@ -34,24 +41,28 @@ li {
 	color: #fff;
 }
 #display-field {
-	height: 45px;
-	width: 350px;
-	font-size: 22px;
+	height: 30px;
+	width: 235px;
+	font-size: 30px;
 	color: #fff
 	margin-top: 25px;
+	margin: auto;
+	text-align:left;
+	padding: 20px 0 20px 15px;
 }
 #big-div {
 	display: inline-block;
 }
 #number-buttons {
 	width: 175px;
+	clear: both;
 }
 #symbol-buttons {
 	width: 60px;
 	display: inline-block;
 }
 #clr-button {
-	float: left;
+	float:left;
 }
 .operator {
 	background-color: #cc9900
