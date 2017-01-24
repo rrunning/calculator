@@ -1,5 +1,5 @@
 body {
-	background-color: #444;
+	background-color: #bbbbbb;
 	color: white;
 	font-size: 18px
 }
@@ -29,7 +29,7 @@ li {
 		border-radius: 15px;
 		width: 300px;
 		padding-bottom: 25px;
-
+		background-color: #444;
 }
 #zero {
 	width: 115px;
