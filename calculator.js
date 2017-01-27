@@ -88,16 +88,17 @@ $(document).ready (function() {
 		}
 	}
 
-	function addParenth() {
-		var currScreen = input.html();
+	function addParenth(currStr) {
+		var currScreen = currStr;
 		var splitStart;
 		var splitEnd;
 		for (var i = currScreen.length -1; i >= 0; i--) {
-			if (splitEnd === undefined) {
+			if (splitEnd) {
 				if (isOperator(currScreen[i])) {
-					if (currScreen[i] === '-') {
+					if (currScreen[i] === '-' || i === 0) {
 						if (currScreen[i-1] === '-') {
 							splitStart = i;
+							currScreen = currScreen.slice(0, splitStart) + '(' + currScreen.slice(splitStart, splitEnd + 1) + ')' + currScreen.slice(splitEnd + 1, currScreen.length);
 						}
 						else {
 							splitEnd = null;
@@ -111,8 +112,22 @@ $(document).ready (function() {
 					// continue loop
 				}
 			}
+			else {
+				if (isOperator(currScreen[i])) {
+					// no action
+					continue;
+				}
+				else {
+					splitEnd = i;
+				}
+			}
 		}
-		var finalStr = str.slice(0, splitStart) + '(' + str.slice(splitStart, splitEnd + 1) + ')';
+		if (!splitEnd) {
+			var finalStr = currScreen;
+		}
+		else {
+			var finalStr = currScreen.slice(0, splitStart) + '(' + currScreen.slice(splitStart, splitEnd + 1) + ')';
+		}
 		return finalStr;
 	}
 
@@ -243,7 +258,8 @@ $(document).ready (function() {
 			// input.html(input.html().substring(0, input.html().length - 1));
 			displayString = displayString.substring(0, displayString.length - 1);
 		}
-		return displayString;
+		return addParenth(displayString);
+		// return displayString;
 	}
 
 	function peanut(event) {
